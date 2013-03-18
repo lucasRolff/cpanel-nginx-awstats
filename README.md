@@ -52,6 +52,3 @@ Above, you can see the code (located in makeawstats folder).
 When reading from stdin, you'll get a json string returned, due to the lack of json module in Python2.4 which is default on CentOS 5.x systems, we're using eval instead, and we do some replacement of `':null'` to `':None'`.
 
 It makes a file in the `/home/$USER/tmp/awstats/awstats.conf.include`, and writing the custom logformat to that file, and at same time it adds a section into awstats displaying the information from `%extra1`.
-
-###Are you running fcgi?
-If you're running fcgi, using the php_values is not supported. The way to fix this, is using [htscanner Enhanced](https://github.com/piannelli/htscanner-enhanced) made by [Paolo Iannelli](http://www.paoloiannelli.com/).
