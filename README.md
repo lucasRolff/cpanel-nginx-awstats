@@ -2,7 +2,7 @@ cpanel-awstats-nginx-support
 ============================
 
 #What is it for?
-The script below is created, because some hosts decide to run custom webservers, like nginx, which might have a different log_format than apache have my default.
+The script below is created, because some hosts decide to run custom webservers, like nginx, which might have a different log_format than apache have by default.
 
 The reason why the code below is added to the `awstats.conf.include` file, is because the awstats in cpanel doesn't support it. So putting the LogFormat in the global awstats.conf, won't work, so it needs to be added on a user specific level.
 
