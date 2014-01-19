@@ -14,8 +14,7 @@ The code below, is meant for the following log_format in nginx:
 
 To add the hook into cPanel, you should use the code below:
 
-```
-bash
+``` bash
 /usr/local/cpanel/bin/manage_hooks \
 add script /opt/makeawstats/makeawstats.py \
 --stage post \
@@ -29,8 +28,7 @@ To take a small overview, of what the code does:
 
 
 
-```
-python
+``` python
 #!/usr/bin/python
 import sys, pwd, grp, os
 import simplejson as json
