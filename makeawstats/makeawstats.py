@@ -5,8 +5,7 @@ import simplejson as json
 #Read the cpanel hook info from stdin
 rawData = sys.stdin.readlines()
 
-#Replace null with None, since the default python2.4 (centos 5)
-#doesn't have json module, we can work around it like that
+#We parse the json data using simplejson module
 hookdata = json.loads(rawData[0])
 
 data = hookdata['data']
