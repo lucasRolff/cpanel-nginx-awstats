@@ -78,3 +78,36 @@ The cPanel hook system will return a json string that we can read from stdin, so
 It will make a file in the `/home/$USER/tmp/awstats` folder called `awstats.conf.include` and write the custom logformat, and the section name etc.
 
 After this we recursively chown the folder and files to the user.
+
+
+#Already have active cpanel users?
+
+``` bash
+#!bin/bash
+
+CPANEL_USERS="ls /var/cpanel/users/"
+
+for user in `$CPANEL_USERS`; do
+AWSTATS_PATH="/home/$user/tmp/awstats/awstats.conf.include"
+if [ ! -f $AWSTATS_PATH ]; then
+echo "AWStats file not found for user: $user. Creating.."
+# Inserting code to awstats.conf.include
+echo '
+LogFormat="%host %other %logname %time1 %methodurl %code %bytesd %refererquot %uaquot %extra1"
+ExtraSectionName1="Time to serve requests (seconds"
+ExtraSectionCodeFilter1=""
+ExtraSectionFirstColumnTitle1="Number of seconds to serve the request"
+ExtraSectionFirstColumnValues1="extra1,(.*"
+ExtraSectionStatTypes1="H"
+ExtraTrackedRowsLimit=100000' >> $AWSTATS_PATH
+# Setting the right permissions for each user
+chown -R $user:$user $AWSTATS_PATH
+else
+	echo "AWStats file found for user: $user. Doing nothing."
+fi
+done
+```
+
+Above, you can see the code (located in updateawstats folder).
+
+Run the updateawstats.sh to loop through all cpanel users to check if they have the awstats.conf.include file. If not, the file gets created and populated with code.
